@@ -1,0 +1,11 @@
+.white-key {
+    background-color: whitesmoke;
+    height: 100px;
+}
+.black-key {
+    background-color: black;
+    height: 50px;
+}
+button {
+    width: 20px; 
+}
