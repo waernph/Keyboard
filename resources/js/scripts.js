@@ -1,5 +1,5 @@
 const context = new AudioContext();
-const oscTypeArray = ["sine", "square", "triangle", "sawtooth"];
+const oscTypeArray = ["sine", "square", "triangle", "sawtooth"]; //Array med typ ljudvågor
 const keyFreq = {
     "C4": 261.63,
     "C#4": 277.18,
@@ -13,7 +13,7 @@ const keyFreq = {
     "A4": 440.00,
     "A#4": 466.16,
     "B4": 493.88
-};
+}; //Dict med frekvenser för varje not.
 const cKey = document.querySelector("#c");
 const cSharpKey = document.querySelector("#cSharp");
 const dKey = document.querySelector("#d");
@@ -27,176 +27,102 @@ const aKey = document.querySelector("#a");
 const aSharpKey = document.querySelector("#aSharp");
 const bKey = document.querySelector("#b");
 const powerBtn = document.querySelector("#powerBtn");
+const allKeys = document.querySelectorAll(".all-keys")
 
-
-let volumeSet = 0.2;
+let volumeSet = 0.2; //För att kunna ändra volym i webappen senare.
 
 
 
 function Oscillator(freq, detune, typeIndex, volume) {
-    this.osc = context.createOscillator();
-    this.gainNode = context.createGain();
-    this.osc.type = oscTypeArray[typeIndex];
-    this.osc.connect(this.gainNode);
-    this.osc.frequency.setValueAtTime(freq, context.currentTime);
-    this.osc.detune.setValueAtTime(detune, context.currentTime);
-    this.gainNode.gain.setValueAtTime(volume, context.currentTime);
-    this.gainNode.connect(context.destination);
-    this.osc.start();
-}
-
-function stopOsc() {
-    osc1.gainNode.gain.value = 0;
-    osc2.gainNode.gain.value = 0;
+    this.osc = context.createOscillator(); //Skapa ny oscillator-nod
+    this.gainNode = context.createGain(); //Skapa gain(volym)-nod
+    this.osc.type = oscTypeArray[typeIndex]; //Sätt typ av ljudvåg, hämtas av array
+    this.osc.connect(this.gainNode); // Koppla oscillator-noden till gain-noden.
+    this.osc.frequency.setValueAtTime(freq, context.currentTime); //Sätt frekvens för oscillatorn
+    this.osc.detune.setValueAtTime(detune, context.currentTime); //Sätt detune för oscillatorn i semitones(tror jag)
+    this.gainNode.gain.setValueAtTime(volume, context.currentTime); //Sätt gain(volym) på gain-noden.
+    this.gainNode.connect(context.destination); //Koppla gain-noden till destination, kan nog liknas vid ljudutgång.
+    this.osc.start(); // Starta oscillatorn.
 }
 
 let osc1;
 let osc2;
 
-powerBtn.addEventListener("click", () => {
-    osc1 = new Oscillator(0, 0, 3, 0.2);
-    osc2 = new Oscillator(0, 0, 3, 0.2);
-})
+function stopOsc() {
+    osc1.osc.stop();
+    osc2.osc.stop();
+}
 
-addEventListener("click", () => {
-    console.log(osc1.gainNode.gain.value);
-    
-});
 
 cKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.C4;
-    osc2.osc.frequency.value = keyFreq.C4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.C4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.C4, 10, 3, volumeSet);
 });
 cKey.addEventListener("mouseup", stopOsc)
 cKey.addEventListener("mouseout", stopOsc)
 
 cSharpKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq["C#4"];
-    osc2.osc.frequency.value = keyFreq["C#4"];
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq["C#4"], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq["C#4"], 10, 3, volumeSet);
 });
-cSharpKey.addEventListener("mouseup", stopOsc)
-cSharpKey.addEventListener("mouseout", stopOsc)
 
 dKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.D4;
-    osc2.osc.frequency.value = keyFreq.D4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.D4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.D4, 10, 3, volumeSet);
 });
-dKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
 
 dSharpKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq["D#4"];
-    osc2.osc.frequency.value = keyFreq["D#4"];
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq["D#4"], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq["D#4"], 10, 3, volumeSet);
 });
-dSharpKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
 
 eKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.E4;
-    osc2.osc.frequency.value = keyFreq.E4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.E4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.E4, 10, 3, volumeSet);
 });
-eKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
 
 fKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.F4;
-    osc2.osc.frequency.value = keyFreq.F4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.F4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.F4, 10, 3, volumeSet);
 });
-fKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
 
 fSharpKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq["F#4"];
-    osc2.osc.frequency.value = keyFreq["F#4"];
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq["F#4"], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq["F#4"], 10, 3, volumeSet);
 });
-fSharpKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
 
 gKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.G4;
-    osc2.osc.frequency.value = keyFreq.G4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.G4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.G4, 10, 3, volumeSet);
 });
-gKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
 
 gSharpKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq["G#4"];
-    osc2.osc.frequency.value = keyFreq["G#4"];
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq["G#4"], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq["G#4"], 10, 3, volumeSet);
 });
-gSharpKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
 
 aKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.A4;
-    osc2.osc.frequency.value = keyFreq.A4;
+    osc1 = new Oscillator(keyFreq.A4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.A4, 10, 3, volumeSet);
 
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
 });
-aKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
 aSharpKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq["A#4"];
-    osc2.osc.frequency.value = keyFreq["A#4"];
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq["A#4"], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq["A#4"], 10, 3, volumeSet);
 });
-aSharpKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
 bKey.addEventListener("mousedown", () => {
-    osc1.osc.frequency.value = keyFreq.B4;
-    osc2.osc.frequency.value = keyFreq.B4;
-
-    osc1.gainNode.gain.value = volumeSet;
-    osc2.gainNode.gain.value = volumeSet;
+    osc1 = new Oscillator(keyFreq.B4, 0, 3, volumeSet);
+    osc2 = new Oscillator(keyFreq.B4, 10, 3, volumeSet);
 });
-bKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+
+
+//Alla tangenter loopas igenom med event listener för att avgöra om musknappen höjs eller musen flyttas från tangenten.
+allKeys.forEach(key => {
+    key.addEventListener("mouseup", stopOsc);
+    key.addEventListener("mouseout", stopOsc);
+});
