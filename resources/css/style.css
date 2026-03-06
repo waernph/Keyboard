@@ -1,3 +1,9 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .white-key {
     background-color: whitesmoke;
     height: 100px;
