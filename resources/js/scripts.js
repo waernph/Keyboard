@@ -29,6 +29,7 @@ const bKey = document.querySelector("#b");
 const powerBtn = document.querySelector("#powerBtn");
 const allKeys = document.querySelectorAll(".all-keys")
 
+
 let volumeSet = 0.2; //För att kunna ändra volym i webappen senare.
 
 
@@ -55,6 +56,7 @@ function stopOsc() {
 
 
 cKey.addEventListener("mousedown", () => {
+    
     osc1 = new Oscillator(keyFreq.C4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.C4, 10, 3, volumeSet);
 });
