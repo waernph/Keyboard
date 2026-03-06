@@ -26,48 +26,66 @@ const gSharpKey = document.querySelector("#gSharp");
 const aKey = document.querySelector("#a");
 const aSharpKey = document.querySelector("#aSharp");
 const bKey = document.querySelector("#b");
+const powerBtn = document.querySelector("#powerBtn");
 
 
-
+let volumeSet = 0.2;
 
 
 
 function Oscillator(freq, detune, typeIndex, volume) {
     this.osc = context.createOscillator();
-    const gainNode = context.createGain();
+    this.gainNode = context.createGain();
     this.osc.type = oscTypeArray[typeIndex];
-    this.osc.connect(gainNode);
+    this.osc.connect(this.gainNode);
     this.osc.frequency.setValueAtTime(freq, context.currentTime);
     this.osc.detune.setValueAtTime(detune, context.currentTime);
-    gainNode.gain.setValueAtTime(volume, context.currentTime);
-    gainNode.connect(context.destination);
-    this.osc.start(0);
+    this.gainNode.gain.setValueAtTime(volume, context.currentTime);
+    this.gainNode.connect(context.destination);
+    this.osc.start();
+}
+
+function stopOsc() {
+    osc1.gainNode.gain.value = 0;
+    osc2.gainNode.gain.value = 0;
 }
 
 let osc1;
 let osc2;
 
-cKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.C4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.C4, 10, 3, 0.2);
-});
-cKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
+powerBtn.addEventListener("click", () => {
+    osc1 = new Oscillator(0, 0, 3, 0.2);
+    osc2 = new Oscillator(0, 0, 3, 0.2);
 })
+
+
+
+cKey.addEventListener("mousedown", () => {
+    osc1.osc.frequency.value = keyFreq.C4;
+    osc2.osc.frequency.value = keyFreq.C4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
+});
+cKey.addEventListener("mouseup", stopOsc)
+cKey.addEventListener("mouseout", stopOsc)
 
 cSharpKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq["C#4"], 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq["C#4"], 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq["C#4"];
+    osc2.osc.frequency.value = keyFreq["C#4"];
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
-cSharpKey.addEventListener("mouseup", () => {
-    osc1.osc.stop();
-    osc2.osc.stop();
-})
+cSharpKey.addEventListener("mouseup", stopOsc)
+cSharpKey.addEventListener("mouseout", stopOsc)
 
 dKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.D4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.D4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.D4;
+    osc2.osc.frequency.value = keyFreq.D4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 dKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -75,8 +93,11 @@ dKey.addEventListener("mouseup", () => {
 })
 
 dSharpKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq["D#4"], 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq["D#4"], 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq["D#4"];
+    osc2.osc.frequency.value = keyFreq["D#4"];
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 dSharpKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -84,8 +105,11 @@ dSharpKey.addEventListener("mouseup", () => {
 })
 
 eKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.E4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.E4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.E4;
+    osc2.osc.frequency.value = keyFreq.E4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 eKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -93,8 +117,11 @@ eKey.addEventListener("mouseup", () => {
 })
 
 fKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.F4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.F4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.F4;
+    osc2.osc.frequency.value = keyFreq.F4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 fKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -102,8 +129,11 @@ fKey.addEventListener("mouseup", () => {
 })
 
 fSharpKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq["F#4"], 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq["F#4"], 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq["F#4"];
+    osc2.osc.frequency.value = keyFreq["F#4"];
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 fSharpKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -111,8 +141,11 @@ fSharpKey.addEventListener("mouseup", () => {
 })
 
 gKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.G4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.G4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.G4;
+    osc2.osc.frequency.value = keyFreq.G4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 gKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -120,8 +153,11 @@ gKey.addEventListener("mouseup", () => {
 })
 
 gSharpKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq["G#4"], 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq["G#4"], 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq["G#4"];
+    osc2.osc.frequency.value = keyFreq["G#4"];
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 gSharpKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
@@ -129,24 +165,33 @@ gSharpKey.addEventListener("mouseup", () => {
 })
 
 aKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.A4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.A4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.A4;
+    osc2.osc.frequency.value = keyFreq.A4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 aKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
     osc2.osc.stop();
 })
 aSharpKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq["A#4"], 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq["A#4"], 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq["A#4"];
+    osc2.osc.frequency.value = keyFreq["A#4"];
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 aSharpKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
     osc2.osc.stop();
 })
 bKey.addEventListener("mousedown", () => {
-    osc1 = new Oscillator(keyFreq.B4, 0, 3, 0.2);
-    osc2 = new Oscillator(keyFreq.B4, 10, 3, 0.2);
+    osc1.osc.frequency.value = keyFreq.B4;
+    osc2.osc.frequency.value = keyFreq.B4;
+
+    osc1.gainNode.gain.value = volumeSet;
+    osc2.gainNode.gain.value = volumeSet;
 });
 bKey.addEventListener("mouseup", () => {
     osc1.osc.stop();
