@@ -12,6 +12,9 @@ body {
     background-color: black;
     height: 50px;
 }
-button {
+.allKeys {
     width: 20px; 
+}
+.powerBtn {
+
 }

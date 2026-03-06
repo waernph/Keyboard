@@ -58,7 +58,10 @@ powerBtn.addEventListener("click", () => {
     osc2 = new Oscillator(0, 0, 3, 0.2);
 })
 
-
+addEventListener("click", () => {
+    console.log(osc1.gainNode.gain.value);
+    
+});
 
 cKey.addEventListener("mousedown", () => {
     osc1.osc.frequency.value = keyFreq.C4;
