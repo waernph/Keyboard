@@ -1,35 +1,31 @@
 const context = new AudioContext();
-
 const oscTypeArray = ["sine", "square", "triangle", "sawtooth"];
-
-const gainNode = context.createGain();
-gainNode.gain.setValueAtTime(0.2, context.currentTime);
-
 const cKey = document.querySelector("#c");
 
 
 
 
-function Oscillator(freq, detune, typeIndex) {
+function Oscillator(freq, detune, typeIndex, volume) {
     this.osc = context.createOscillator();
+    const gainNode = context.createGain();
     this.osc.type = oscTypeArray[typeIndex];
-    this.osc.connect(gainNode);
+    this.osc.connect(gainNode);   
     this.osc.frequency.setValueAtTime(freq, context.currentTime);
     this.osc.detune.setValueAtTime(detune, context.currentTime);
+    gainNode.gain.setValueAtTime(volume, context.currentTime);
+    gainNode.connect(context.destination);
     this.osc.start(0);
 }
 
+let osc1;
+let osc2;
 
-function playC() {
-    const osc1 = new Oscillator(440, 0, 3);
-    const osc2 = new Oscillator(440, 10, 3);
-}
-
-
-gainNode.connect(context.destination);
-
-
-
-
-cKey.addEventListener("mousedown", playC);
+cKey.addEventListener("mousedown", () => {
+    osc1 = new Oscillator(440, 0, 3, 0.2);
+    osc2 = new Oscillator(440, 10, 3, 0.2);
+});
+cKey.addEventListener("mouseup", () => {
+    osc1.osc.stop();
+    osc2.osc.stop();
+})
 
