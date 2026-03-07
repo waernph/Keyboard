@@ -55,69 +55,67 @@ function stopOsc() {
 }
 
 
-cKey.addEventListener("mousedown", () => {
+cKey.addEventListener("pointerdown", () => {
     
     osc1 = new Oscillator(keyFreq.C4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.C4, 10, 3, volumeSet);
 });
-cKey.addEventListener("mouseup", stopOsc)
-cKey.addEventListener("mouseout", stopOsc)
 
-cSharpKey.addEventListener("mousedown", () => {
+cSharpKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq["C#4"], 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq["C#4"], 10, 3, volumeSet);
 });
 
-dKey.addEventListener("mousedown", () => {
+dKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.D4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.D4, 10, 3, volumeSet);
 });
 
-dSharpKey.addEventListener("mousedown", () => {
+dSharpKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq["D#4"], 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq["D#4"], 10, 3, volumeSet);
 });
 
 
-eKey.addEventListener("mousedown", () => {
+eKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.E4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.E4, 10, 3, volumeSet);
 });
 
 
-fKey.addEventListener("mousedown", () => {
+fKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.F4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.F4, 10, 3, volumeSet);
 });
 
-fSharpKey.addEventListener("mousedown", () => {
+fSharpKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq["F#4"], 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq["F#4"], 10, 3, volumeSet);
 });
 
-gKey.addEventListener("mousedown", () => {
+gKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.G4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.G4, 10, 3, volumeSet);
 });
 
-gSharpKey.addEventListener("mousedown", () => {
+gSharpKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq["G#4"], 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq["G#4"], 10, 3, volumeSet);
 });
 
 
-aKey.addEventListener("mousedown", () => {
+aKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.A4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.A4, 10, 3, volumeSet);
 
 });
 
-aSharpKey.addEventListener("mousedown", () => {
+aSharpKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq["A#4"], 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq["A#4"], 10, 3, volumeSet);
 });
 
-bKey.addEventListener("mousedown", () => {
+bKey.addEventListener("pointerdown", () => {
     osc1 = new Oscillator(keyFreq.B4, 0, 3, volumeSet);
     osc2 = new Oscillator(keyFreq.B4, 10, 3, volumeSet);
 });
@@ -125,6 +123,6 @@ bKey.addEventListener("mousedown", () => {
 
 //Alla tangenter loopas igenom med event listener för att avgöra om musknappen höjs eller musen flyttas från tangenten.
 allKeys.forEach(key => {
-    key.addEventListener("mouseup", stopOsc);
-    key.addEventListener("mouseout", stopOsc);
+    key.addEventListener("pointerup", stopOsc);
+    key.addEventListener("pointerout", stopOsc);
 });

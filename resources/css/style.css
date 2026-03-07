@@ -4,14 +4,21 @@ body {
     justify-content: center;
     align-items: center;
 }
+.key-area {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
 .white-key {
     background-color: whitesmoke;
     height: 100px;
+    z-index: 1;
 }
 .black-key {
     background-color: black;
     height: 50px;
+    z-index: 5;
 }
 .all-keys {
-    width: 20px; 
+    width: 40px; 
 }
