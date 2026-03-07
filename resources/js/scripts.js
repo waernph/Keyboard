@@ -1,3 +1,4 @@
+
 const context = new AudioContext();
 const oscTypeArray = ["sine", "square", "triangle", "sawtooth"]; //Array med typ ljudvågor
 const keyFreq = {
@@ -30,6 +31,7 @@ const powerBtn = document.querySelector("#powerBtn");
 const allKeys = document.querySelectorAll(".all-keys")
 
 
+
 let volumeSet = 0.2; //För att kunna ändra volym i webappen senare.
 
 
@@ -54,70 +56,13 @@ function stopOsc() {
     osc2.osc.stop();
 }
 
+// Alla tangenter lyssnas på och får value från HTML vid pointerdown
+allKeys.forEach(key => {
+    key.addEventListener("pointerdown", () => {
+        osc1 = new Oscillator(keyFreq[key.value], 0, 3, volumeSet);
+        osc2 = new Oscillator(keyFreq[key.value], 10, 3, volumeSet);
+    })
 
-cKey.addEventListener("pointerdown", () => {
-    
-    osc1 = new Oscillator(keyFreq.C4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.C4, 10, 3, volumeSet);
-});
-
-cSharpKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq["C#4"], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq["C#4"], 10, 3, volumeSet);
-});
-
-dKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.D4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.D4, 10, 3, volumeSet);
-});
-
-dSharpKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq["D#4"], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq["D#4"], 10, 3, volumeSet);
-});
-
-
-eKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.E4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.E4, 10, 3, volumeSet);
-});
-
-
-fKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.F4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.F4, 10, 3, volumeSet);
-});
-
-fSharpKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq["F#4"], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq["F#4"], 10, 3, volumeSet);
-});
-
-gKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.G4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.G4, 10, 3, volumeSet);
-});
-
-gSharpKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq["G#4"], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq["G#4"], 10, 3, volumeSet);
-});
-
-
-aKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.A4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.A4, 10, 3, volumeSet);
-
-});
-
-aSharpKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq["A#4"], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq["A#4"], 10, 3, volumeSet);
-});
-
-bKey.addEventListener("pointerdown", () => {
-    osc1 = new Oscillator(keyFreq.B4, 0, 3, volumeSet);
-    osc2 = new Oscillator(keyFreq.B4, 10, 3, volumeSet);
 });
 
 
