@@ -16,6 +16,7 @@ const keyFreq = {
     "B4": 493.88
 }; //Dict med frekvenser för varje not.
 
+//Tangenterna som har ett värde som hämtas från keyFreq.
 const keyPressed = {
     "a": keyFreq.C4,
     "w": keyFreq["C#4"],
@@ -75,6 +76,8 @@ function stopOsc() {
     osc2.osc.stop();
 }
 
+//Eventlistener för att trigga vid knapptryckning. Knappen som trycks ner är k.key.
+//if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
 addEventListener("keypress", (k) => {
     if (!keyIsDown) {
         keyIsDown = true;
