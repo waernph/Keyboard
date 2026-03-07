@@ -3,22 +3,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-user-select: none;
+    user-select: none;
 }
+
 .key-area {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    justify-content: space-around;
 }
+
 .white-key {
     background-color: whitesmoke;
     height: 100px;
     z-index: 1;
 }
+
 .black-key {
     background-color: black;
     height: 50px;
     z-index: 5;
 }
+
 .all-keys {
-    width: 40px; 
+    width: 30px;
+
+}
+
+button {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
 }
