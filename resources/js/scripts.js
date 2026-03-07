@@ -68,19 +68,26 @@ function Oscillator(freq, detune, typeIndex, volume) {
 
 let osc1;
 let osc2;
+let keyIsDown = false;
 
 function stopOsc() {
     osc1.osc.stop();
     osc2.osc.stop();
 }
 
-addEventListener("keydown", (k) => {
-    
-    osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+addEventListener("keypress", (k) => {
+    if (!keyIsDown) {
+        keyIsDown = true;
+        console.log("Your pressed: " + k.key);
+        osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
+        osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+    }
 });
 
-
+addEventListener("keyup", () => {
+    keyIsDown = false;
+    stopOsc();
+});
 
 
 // Alla tangenter lyssnas på och får value från HTML vid pointerdown
