@@ -15,6 +15,24 @@ const keyFreq = {
     "A#4": 466.16,
     "B4": 493.88
 }; //Dict med frekvenser för varje not.
+
+const keyPressed = {
+    "a": keyFreq.C4,
+    "w": keyFreq["C#4"],
+    "s": keyFreq.D4,
+    "e": keyFreq["D#4"],
+    "d": keyFreq.E4,
+    "f": keyFreq.F4,
+    "t": keyFreq["F#4"],
+    "g": keyFreq.G4,
+    "y": keyFreq["G#4"],
+    "h": keyFreq.A4,
+    "u": keyFreq["A#4"],
+    "j": keyFreq.B4
+}
+
+
+
 const cKey = document.querySelector("#c");
 const cSharpKey = document.querySelector("#cSharp");
 const dKey = document.querySelector("#d");
@@ -50,11 +68,27 @@ function Oscillator(freq, detune, typeIndex, volume) {
 
 let osc1;
 let osc2;
+let keyIsDown = false;
 
 function stopOsc() {
     osc1.osc.stop();
     osc2.osc.stop();
 }
+
+addEventListener("keypress", (k) => {
+    if (!keyIsDown) {
+        keyIsDown = true;
+        console.log("Your pressed: " + k.key);
+        osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
+        osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+    }
+});
+
+addEventListener("keyup", () => {
+    keyIsDown = false;
+    stopOsc();
+});
+
 
 // Alla tangenter lyssnas på och får value från HTML vid pointerdown
 allKeys.forEach(key => {
@@ -62,7 +96,6 @@ allKeys.forEach(key => {
         osc1 = new Oscillator(keyFreq[key.value], 0, 3, volumeSet);
         osc2 = new Oscillator(keyFreq[key.value], 10, 3, volumeSet);
     })
-
 });
 
 
@@ -71,3 +104,4 @@ allKeys.forEach(key => {
     key.addEventListener("pointerup", stopOsc);
     key.addEventListener("pointerout", stopOsc);
 });
+
