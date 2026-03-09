@@ -34,11 +34,31 @@ body {
     z-index: 2;
     background-color: rgb(90, 157, 90);
 }
-.display p {
+.display-off {
+    position: absolute;
+    width: 210px;
+    height: 70px;
+    border:  rgb(47, 47, 47) 2px solid;
+    border-radius: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    top:5px;
+    z-index: 2;
+    background-color: rgb(62, 78, 62);
+}
+.display-row {
     margin: 0px;
     margin-left: 5px;
     font-family: "Bitcount Single";
     font-size: 0.9rem;
+    color: rgba(17, 28, 17);
+}
+.logo{
+    top: 5px;
+    margin: 0px;
+    font-family: "Bitcount Single";
+    text-align: center;
+    font-size: 4rem;
     color: rgb(17, 28, 17);
 }
 
