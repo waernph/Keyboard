@@ -34,12 +34,19 @@ body {
     z-index: 2;
     background-color: rgb(90, 157, 90);
 }
-.display p {
+.display-row {
     margin: 0px;
     margin-left: 5px;
     font-family: "Bitcount Single";
     font-size: 0.9rem;
     color: rgb(17, 28, 17);
+}
+.logo{
+    top: 5px;
+    margin: 0px;
+    font-family: "Bitcount Single";
+    text-align: center;
+    font-size: 4rem;
 }
 
 .key-area {
