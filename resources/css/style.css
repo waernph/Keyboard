@@ -69,19 +69,21 @@ body {
 
 .white-key p {
     color: gray;
+    font-weight: 500;
     display: flex;
     justify-content: center;
-    align-items: end;
     text-transform: uppercase;
     position: absolute;
     bottom: 2px;
 }
 .black-key p{
     color: rgb(95, 95, 95);
+    font-weight: 500;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-transform: uppercase;
+    position: relative;
     bottom: 1px;
 }
 
