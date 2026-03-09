@@ -123,11 +123,32 @@ allKeys.forEach(key => {
     key.addEventListener("pointerout", stopOsc);
 });
 
-function logo() {
-    rowOne.style.opacity = "0";
-    rowTwo.style.opacity = "0";
-    rowThree.style.opacity = "0";
-    rowFour.style.opacity = "0";
-    logoArt.innerHTML = "wrn";
-}
-logo();
+
+
+rowOne.style.opacity = "0";
+rowTwo.style.opacity = "0";
+rowThree.style.opacity = "0";
+rowFour.style.opacity = "0";
+logoArt.style.opacity = "0";
+logoArt.innerHTML = "wrn";
+display.style.opacity = "0";
+
+let o = 0;
+let intervallID = setInterval(() => {
+    display.style.opacity = `${o}`;
+    o += 0.1;
+    if (o >= 1) {
+        console.log("clear");
+        clearInterval(intervallID);
+        o = 0;
+        intervallID = setInterval(() => {
+            logoArt.style.opacity = `${o}`
+            o += 0.1;
+            if (o >= 1){
+                clearInterval(intervallID);
+            }
+        }, 200);
+    }
+}, 100);
+
+
