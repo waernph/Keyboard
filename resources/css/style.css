@@ -132,3 +132,13 @@ button {
     touch-action: manipulation;
     -webkit-touch-callout: none;
 }
+
+
+@media (max-width: 600px) {
+    .black-key p {
+        color: transparent;
+    }
+    .white-key p {
+        color: transparent;
+    }
+}
