@@ -90,17 +90,17 @@ function stopOsc() {
     osc1.osc.stop();
     osc2.osc.stop();
 }
-
 //Eventlistener för att trigga vid knapptryckning. Knappen som trycks ner är k.key.
 //if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
-addEventListener("keypress", (k) => {
+addEventListener("keydown", (k) => {
     if (!keyIsDown) {
         keyIsDown = true;
-        console.log("Your pressed: " + k.key);
+        console.log("You've pressed: " + k.key);
         osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
         osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
     }
-});
+}
+);
 
 addEventListener("keyup", () => {
     keyIsDown = false;
@@ -144,7 +144,7 @@ let intervallID = setInterval(() => {
         intervallID = setInterval(() => {
             logoArt.style.opacity = `${o}`
             o += 0.1;
-            if (o >= 1){
+            if (o >= 1) {
                 clearInterval(intervallID);
             }
         }, 200);
