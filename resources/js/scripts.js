@@ -32,6 +32,15 @@ const keyPressed = {
     "j": keyFreq.B4
 }
 
+const wrn = `
+██╗    ██╗██████╗ ███╗   ██╗
+██║    ██║██╔══██╗████╗  ██║
+██║ █╗ ██║██████╔╝██╔██╗ ██║
+██║███╗██║██╔══██╗██║╚██╗██║
+╚███╔███╔╝██║  ██║██║ ╚████║
+ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+`;
+
 
 
 const cKey = document.querySelector("#c");
@@ -47,9 +56,15 @@ const aKey = document.querySelector("#a");
 const aSharpKey = document.querySelector("#aSharp");
 const bKey = document.querySelector("#b");
 const powerBtn = document.querySelector("#powerBtn");
-const allKeys = document.querySelectorAll(".all-keys")
+const allKeys = document.querySelectorAll(".all-keys");
 
-
+// DISPLAY  CONTENT
+const rowOne = document.querySelector("#row1");
+const rowTwo = document.querySelector("#row2");
+const rowThree = document.querySelector("#row3");
+const rowFour = document.querySelector("#row4");
+const display = document.querySelector(".display");
+const logoArt = document.querySelector("#logo");
 
 let volumeSet = 0.2; //För att kunna ändra volym i webappen senare.
 
@@ -107,4 +122,33 @@ allKeys.forEach(key => {
     key.addEventListener("pointerup", stopOsc);
     key.addEventListener("pointerout", stopOsc);
 });
+
+
+
+rowOne.style.opacity = "0";
+rowTwo.style.opacity = "0";
+rowThree.style.opacity = "0";
+rowFour.style.opacity = "0";
+logoArt.style.opacity = "0";
+logoArt.innerHTML = "wrn";
+display.style.opacity = "0";
+
+let o = 0;
+let intervallID = setInterval(() => {
+    display.style.opacity = `${o}`;
+    o += 0.1;
+    if (o >= 1) {
+        console.log("clear");
+        clearInterval(intervallID);
+        o = 0;
+        intervallID = setInterval(() => {
+            logoArt.style.opacity = `${o}`
+            o += 0.1;
+            if (o >= 1){
+                clearInterval(intervallID);
+            }
+        }, 200);
+    }
+}, 100);
+
 
