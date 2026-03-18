@@ -58,34 +58,40 @@ function Oscillator(freq, detune, typeIndex, volume) {
     this.osc.start(); // Starta oscillatorn.
 }
 
-let osc1;
-let osc2;
+// let osc1;
+// let osc2;
 let keyIsDown = false;
 
 function stopOsc() {
     osc1.osc.stop();
     osc2.osc.stop();
 }
-//Eventlistener för att trigga vid knapptryckning. Knappen som trycks ner är k.key.
-//if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
+
+
+const activeOscillators = new Map();
+
 document.addEventListener("keydown", (k) => {
-    //if (!keyIsDown) {
-    if (k.repeat) {
-        return;
-    }
+    if (k.repeat) return;
 
-    keyIsDown = true;
-    osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
-    osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+    const freq = keyPressed[k.key];
+    if (!freq) return;
 
-    //}
-}
-);
+    // Om redan aktiv → ignorera
+    if (activeOscillators.has(k.key)) return;
+
+    const osc1 = new Oscillator(freq, 0, 3, volumeSet);
+    const osc2 = new Oscillator(freq, 10, 3, volumeSet);
+
+    activeOscillators.set(k.key, [osc1, osc2]);
+});
 
 document.addEventListener("keyup", (k) => {
-    keyIsDown = false;
-    k.disabled = false;
-    stopOsc();
+    const oscPair = activeOscillators.get(k.key);
+    if (!oscPair) return;
+
+    oscPair.forEach(o => o.osc.stop());
+
+    activeOscillators.delete(k.key);
 });
 
 
