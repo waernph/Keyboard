@@ -32,30 +32,6 @@ const keyPressed = {
     "j": keyFreq.B4
 }
 
-const wrn = `
-██╗    ██╗██████╗ ███╗   ██╗
-██║    ██║██╔══██╗████╗  ██║
-██║ █╗ ██║██████╔╝██╔██╗ ██║
-██║███╗██║██╔══██╗██║╚██╗██║
-╚███╔███╔╝██║  ██║██║ ╚████║
- ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-`;
-
-
-
-const cKey = document.querySelector("#c");
-const cSharpKey = document.querySelector("#cSharp");
-const dKey = document.querySelector("#d");
-const dSharpKey = document.querySelector("#dSharp");
-const eKey = document.querySelector("#e");
-const fKey = document.querySelector("#f");
-const fSharpKey = document.querySelector("#fSharp");
-const gKey = document.querySelector("#g");
-const gSharpKey = document.querySelector("#gSharp");
-const aKey = document.querySelector("#a");
-const aSharpKey = document.querySelector("#aSharp");
-const bKey = document.querySelector("#b");
-const powerBtn = document.querySelector("#powerBtn");
 const allKeys = document.querySelectorAll(".all-keys");
 
 // DISPLAY  CONTENT
@@ -92,18 +68,21 @@ function stopOsc() {
 }
 //Eventlistener för att trigga vid knapptryckning. Knappen som trycks ner är k.key.
 //if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
-addEventListener("keydown", (k) => {
-    if (!keyIsDown) {
+document.addEventListener("keydown", (k) => {
+    //if (!keyIsDown) {
+        if (k.repeat) {
+            return;
+        }
         keyIsDown = true;
-        console.log("You've pressed: " + k.key);
         osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
         osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
-    }
+    //}
 }
 );
 
-addEventListener("keyup", () => {
+document.addEventListener("keyup", (k) => {
     keyIsDown = false;
+    k.disabled = false;
     stopOsc();
 });
 
