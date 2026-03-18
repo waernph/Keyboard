@@ -70,12 +70,14 @@ function stopOsc() {
 //if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
 document.addEventListener("keydown", (k) => {
     //if (!keyIsDown) {
-        if (k.repeat) {
-            return;
-        }
-        keyIsDown = true;
-        osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
-        osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+    if (k.repeat) {
+        return;
+    }
+
+    keyIsDown = true;
+    osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
+    osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
+
     //}
 }
 );
