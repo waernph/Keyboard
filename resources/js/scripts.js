@@ -32,30 +32,6 @@ const keyPressed = {
     "j": keyFreq.B4
 }
 
-const wrn = `
-██╗    ██╗██████╗ ███╗   ██╗
-██║    ██║██╔══██╗████╗  ██║
-██║ █╗ ██║██████╔╝██╔██╗ ██║
-██║███╗██║██╔══██╗██║╚██╗██║
-╚███╔███╔╝██║  ██║██║ ╚████║
- ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
-`;
-
-
-
-const cKey = document.querySelector("#c");
-const cSharpKey = document.querySelector("#cSharp");
-const dKey = document.querySelector("#d");
-const dSharpKey = document.querySelector("#dSharp");
-const eKey = document.querySelector("#e");
-const fKey = document.querySelector("#f");
-const fSharpKey = document.querySelector("#fSharp");
-const gKey = document.querySelector("#g");
-const gSharpKey = document.querySelector("#gSharp");
-const aKey = document.querySelector("#a");
-const aSharpKey = document.querySelector("#aSharp");
-const bKey = document.querySelector("#b");
-const powerBtn = document.querySelector("#powerBtn");
 const allKeys = document.querySelectorAll(".all-keys");
 
 // DISPLAY  CONTENT
@@ -82,29 +58,40 @@ function Oscillator(freq, detune, typeIndex, volume) {
     this.osc.start(); // Starta oscillatorn.
 }
 
-let osc1;
-let osc2;
+// let osc1;
+// let osc2;
 let keyIsDown = false;
 
 function stopOsc() {
     osc1.osc.stop();
     osc2.osc.stop();
 }
-//Eventlistener för att trigga vid knapptryckning. Knappen som trycks ner är k.key.
-//if (!keyIsDown) används för att motverka multipla triggningar vid nedhållen tangent.
-addEventListener("keydown", (k) => {
-    if (!keyIsDown) {
-        keyIsDown = true;
-        console.log("You've pressed: " + k.key);
-        osc1 = new Oscillator(keyPressed[k.key], 0, 3, volumeSet);
-        osc2 = new Oscillator(keyPressed[k.key], 10, 3, volumeSet);
-    }
-}
-);
 
-addEventListener("keyup", () => {
-    keyIsDown = false;
-    stopOsc();
+
+const activeOscillators = new Map();
+
+document.addEventListener("keydown", (k) => {
+    if (k.repeat) return;
+
+    const freq = keyPressed[k.key];
+    if (!freq) return;
+
+    // ignorera om den är aktiv redan
+    if (activeOscillators.has(k.key)) return;
+
+    const osc1 = new Oscillator(freq, 0, 3, volumeSet);
+    const osc2 = new Oscillator(freq, 10, 3, volumeSet);
+
+    activeOscillators.set(k.key, [osc1, osc2]);
+});
+
+document.addEventListener("keyup", (k) => {
+    const oscPair = activeOscillators.get(k.key);
+    if (!oscPair) return;
+
+    oscPair.forEach(o => o.osc.stop());
+
+    activeOscillators.delete(k.key);
 });
 
 
