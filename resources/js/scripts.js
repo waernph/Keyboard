@@ -76,7 +76,7 @@ document.addEventListener("keydown", (k) => {
     const freq = keyPressed[k.key];
     if (!freq) return;
 
-    // Om redan aktiv → ignorera
+    // ignorera om den är aktiv redan
     if (activeOscillators.has(k.key)) return;
 
     const osc1 = new Oscillator(freq, 0, 3, volumeSet);
